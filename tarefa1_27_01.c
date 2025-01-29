@@ -1,7 +1,15 @@
+// Bibliotecas necessárias
 #include "pico/stdlib.h"
+#include "hardware/pio.h"
+#include "ws2812.pio.h"
 
-// Definindo o pino vermelho do led RGB
+// Definindo os pinos utilizados
 #define RED_LED 13
+#define LED_MATRIX 7
+
+// Definindo a matriz de leds
+#define NLED 25
+static const uint32_t LEDS[NLED];
 
 
 // Protótipos das funções
@@ -13,8 +21,14 @@ int main() {
     stdio_init_all();
     init_gpio(RED_LED, GPIO_OUT);
 
+    PIO pio = pio0;
+    uint sm = 0;
+
+    uint offset = pio_add_program(pio, &ws2812_program);
+    ws2812_program_init(pio, sm, offset, LED_MATRIX, 800000, false);
+
     while (true) {
-        red_blink(RED_LED, 200);
+        red_blink(RED_LED, 100);
     }
 }
 

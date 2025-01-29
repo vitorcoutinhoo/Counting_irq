@@ -44,6 +44,8 @@ pico_set_program_version(tarefa1_27_01 "0.1")
 pico_enable_stdio_uart(tarefa1_27_01 1)
 pico_enable_stdio_usb(tarefa1_27_01 1)
 
+pico_generate_pio_header(tarefa1_27_01 ${CMAKE_CURRENT_LIST_DIR}/ws2812.pio OUTPUT_DIR ${CMAKE_CURRENT_LIST_DIR}/generated)
+
 # Add the standard library to the build
 target_link_libraries(tarefa1_27_01
         pico_stdlib)
@@ -55,7 +57,7 @@ target_include_directories(tarefa1_27_01 PRIVATE
 
 # Add any user requested libraries
 target_link_libraries(tarefa1_27_01 
-        
+        hardware_pio
         )
 
 pico_add_extra_outputs(tarefa1_27_01)
