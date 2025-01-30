@@ -58,6 +58,7 @@ target_include_directories(tarefa1_27_01 PRIVATE
 # Add any user requested libraries
 target_link_libraries(tarefa1_27_01 
         hardware_pio
+        hardware_dma
         )
 
 pico_add_extra_outputs(tarefa1_27_01)
