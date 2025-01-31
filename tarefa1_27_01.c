@@ -81,21 +81,22 @@ void init_gpio(uint gpio, uint dir){
 
 
 // Função que pisca o LED vermelho 5 vezes por segundo
-void red_blink(uint gpio, uint freq_ms){
+void red_blink(uint gpio, uint freq_ms) {
     gpio_put(gpio, 1);
-    sleep_ms(freq_ms);
+    sleep_ms(freq_ms);  // Liga o led por x ms
     gpio_put(gpio, 0);
-    sleep_ms(freq_ms);
+    sleep_ms(freq_ms);  
+
 }
 
 
 // Função para mostrar o numero na matriz
 void display_number(uint8_t num) {
-    uint32_t yellow = color(10, 10, 0);
+    uint32_t purple = color(5, 0, 16);
 
     // Segue a matriz numbers como referência para plotar os leds na matriz
     for (uint j = 0; j < NLED; j++) {
-        if (numbers[num][j]) put_pixel(yellow);
+        if (numbers[num][j]) put_pixel(purple);
         else put_pixel(0);
     }
 }
@@ -117,8 +118,8 @@ static inline uint32_t color(uint8_t r, uint8_t g, uint8_t b) {
 void display_handler(uint gpio, uint32_t events) {
     uint32_t current_time = to_us_since_boot(get_absolute_time());
 
-    // Verifica se passou 200 ms depois do ultimo evento
-    if(current_time - last_time > 200000) {
+    // Verifica se passou 250 ms depois do ultimo evento
+    if(current_time - last_time > 250000) {
         last_time = current_time;
 
         // Adiciona + 1, se o botão A for precionado e o numero mostrado for diferente de 9
